@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz — Desvios no Desenvolvimento</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: #f0f4f8; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+  .container { width: 100%; max-width: 780px; margin: 30px auto; padding: 0 16px; }
+  .card { background: #fff; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); overflow: hidden; }
+  .header { background: linear-gradient(135deg, #1e3a5f, #2e6da4); color: #fff; padding: 28px 32px; }
+  .header h1 { font-size: 1.5rem; font-weight: 700; }
+  .header p { font-size: 0.93rem; opacity: 0.85; margin-top: 4px; }
+  .body { padding: 32px; }
+  .start-screen { text-align: center; }
+  .start-screen h2 { font-size: 1.25rem; color: #1e3a5f; margin-bottom: 12px; }
+  .start-screen p { color: #555; margin-bottom: 28px; font-size: 0.97rem; }
+  .btn { display: inline-block; padding: 13px 36px; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; border: none; transition: background 0.2s; }
+  .btn-primary { background: #1e3a5f; color: #fff; }
+  .btn-primary:hover { background: #16304f; }
+  .progress-bar-wrap { height: 7px; background: #e2e8f0; border-radius: 4px; margin-bottom: 22px; }
+  .progress-bar { height: 7px; background: linear-gradient(90deg, #1e3a5f, #2e6da4); border-radius: 4px; transition: width 0.4s; }
+  .progress-text { font-size: 0.82rem; color: #888; margin-bottom: 8px; text-align: right; }
+  .question-text { font-size: 1.07rem; font-weight: 600; color: #1a2533; margin-bottom: 22px; line-height: 1.55; }
+  .options { display: flex; flex-direction: column; gap: 11px; }
+  .option { padding: 13px 17px; border-radius: 9px; border: 2px solid #e2e8f0; cursor: pointer; font-size: 0.96rem; color: #222; transition: border-color 0.2s, background 0.2s; text-align: left; }
+  .option:hover:not(.disabled) { border-color: #2e6da4; background: #f0f6ff; }
+  .option.correct { border-color: #16a34a; background: #f0fdf4; color: #14532d; }
+  .option.wrong { border-color: #dc2626; background: #fef2f2; color: #7f1d1d; }
+  .option.disabled { cursor: default; }
+  .explanation { margin-top: 20px; padding: 14px 16px; background: #fffbeb; border-left: 4px solid #f59e0b; border-radius: 6px; font-size: 0.93rem; color: #444; line-height: 1.55; }
+  .explanation strong { color: #b45309; }
+  .next-btn-wrap { margin-top: 24px; text-align: right; }
+  .result-screen { text-align: center; }
+  .result-screen h2 { font-size: 1.4rem; color: #1e3a5f; margin-bottom: 16px; }
+  .score-circle { width: 130px; height: 130px; border-radius: 50%; background: linear-gradient(135deg, #1e3a5f, #2e6da4); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 24px; box-shadow: 0 4px 16px rgba(30,58,95,0.25); }
+  .score-circle .big { font-size: 2.1rem; font-weight: 800; }
+  .score-circle .label { font-size: 0.78rem; opacity: 0.85; }
+  .stats { display: flex; justify-content: center; gap: 28px; margin-bottom: 28px; }
+  .stat { text-align: center; }
+  .stat .num { font-size: 1.5rem; font-weight: 700; }
+  .stat .desc { font-size: 0.8rem; color: #666; }
+  .stat.green .num { color: #16a34a; }
+  .stat.red .num { color: #dc2626; }
+  .hidden { display: none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="card">
+    <div class="header">
+      <h1>Desvios no Desenvolvimento</h1>
+      <p>Crescimento e Desenvolvimento — Pediatria</p>
+    </div>
+    <div class="body">
+      <div class="start-screen" id="startScreen">
+        <h2>Pronto para testar seus conhecimentos?</h2>
+        <p>Este quiz contém <strong>20 questões</strong> sobre DNPM, TDAH, TEA, dislexia e disgrafia.</p>
+        <button class="btn btn-primary" onclick="startQuiz()">Começar</button>
+      </div>
+      <div class="hidden" id="quizScreen">
+        <div class="progress-text" id="progressText"></div>
+        <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
+        <div class="question-text" id="questionText"></div>
+        <div class="options" id="optionsContainer"></div>
+        <div class="explanation hidden" id="explanation"></div>
+        <div class="next-btn-wrap hidden" id="nextBtnWrap">
+          <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">Próxima questão</button>
+        </div>
+      </div>
+      <div class="hidden result-screen" id="resultScreen">
+        <h2>Quiz finalizado!</h2>
+        <div class="score-circle">
+          <span class="big" id="scorePercent"></span>
+          <span class="label">acertos</span>
+        </div>
+        <div class="stats">
+          <div class="stat green"><div class="num" id="totalCorrect"></div><div class="desc">Corretas</div></div>
+          <div class="stat red"><div class="num" id="totalWrong"></div><div class="desc">Erradas</div></div>
+          <div class="stat"><div class="num" id="totalQ"></div><div class="desc">Total</div></div>
+        </div>
+        <button class="btn btn-primary" onclick="restartQuiz()">Refazer quiz</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const rawQuestions = [
+  {
+    question: "O Teste de Denver II avalia crianças de qual faixa etária e em quais 4 áreas do desenvolvimento?",
+    options: ["0–6 anos; pessoal-social, motricidade fina/adaptativa, linguagem e motricidade ampla", "0–3 anos; motor, linguagem, cognitivo e social", "0–6 anos; motor, sensorial, linguagem e cognitivo", "2–6 anos; pessoal-social, motor fino, linguagem e comportamento", "0–5 anos; motricidade, linguagem, social e cognitivo"],
+    correctIndex: 0,
+    explanation: "O Teste de Denver II avalia crianças de 0 a 6 anos em 4 áreas: pessoal-social, motricidade fina e adaptativa, linguagem e motricidade ampla. É uma escala de rastreio para ADNPM."
+  },
+  {
+    question: "Como deve ser corrigida a idade de prematuros para avaliação dos marcos de desenvolvimento?",
+    options: ["Subtrair da idade cronológica a diferença entre a idade gestacional e 40 semanas (termo)", "Adicionar 2 meses à idade cronológica para qualquer prematuro", "Usar a idade cronológica sem correção após os 6 meses", "Corrigir apenas para prematuros < 28 semanas", "Não é necessário corrigir a idade em prematuros"],
+    correctIndex: 0,
+    explanation: "Em prematuros, deve-se corrigir a idade descontando a diferença entre a idade gestacional e 40 semanas (termo) da idade cronológica. Isso adapta os marcos normais do desenvolvimento ao nível de maturidade real da criança."
+  },
+  {
+    question: "A mielinização ocorre cerca de 90% até qual idade e em qual direção se processa?",
+    options: ["90% até os 4 anos; céfalo-caudal, próximo-distal (centro-periferia) e ulna-rádio", "90% até os 2 anos; caudal-cefálico, distal-proximal", "90% até os 6 anos; céfalo-caudal e látero-medial", "100% até os 4 anos; próximo-distal apenas", "90% até a puberdade; sem direção definida"],
+    correctIndex: 0,
+    explanation: "A mielinização ocorre ~90% até os 4 anos e 10% até a adolescência, de forma céfalo-caudal, centro-periferia (próximo-distal) e ulna-rádio, marcando a transição de funções reflexas para voluntárias."
+  },
+  {
+    question: "Quantos sintomas característicos de TDAH são necessários para o diagnóstico em crianças até 17 anos e qual é o requisito de início dos sintomas?",
+    options: ["≥ 6 sintomas antes dos 12 anos, presentes em mais de 1 ambiente, com prejuízo real", "≥ 5 sintomas a qualquer momento, apenas na escola", "≥ 8 sintomas antes dos 7 anos, apenas em casa", "≥ 6 sintomas após os 12 anos, em qualquer ambiente", "≥ 4 sintomas antes dos 12 anos, com prejuízo escolar apenas"],
+    correctIndex: 0,
+    explanation: "Para o diagnóstico de TDAH são necessários ≥ 6 sintomas, com início antes dos 12 anos, presentes em mais de 1 ambiente (escola, casa) e com prejuízo real. Acima de 17 anos, o critério cai para ≥ 5 sintomas."
+  },
+  {
+    question: "Qual a principal toxina ambiental associada ao TDAH, com forte evidência de risco?",
+    options: ["Chumbo (principal)", "Mercúrio", "Cádmio", "Pesticidas organofosforados", "Bisfenol A"],
+    correctIndex: 0,
+    explanation: "O chumbo é a principal toxina ambiental associada ao TDAH. Outros fatores de risco incluem exposição materna à nicotina (2,4× maior risco), prematuridade e baixo peso (3× maior risco) e hipóxia neonatal."
+  },
+  {
+    question: "Quais são as 3 formas de apresentação clínica do TDAH e qual predomina em cada sexo?",
+    options: ["Desatenta (predomínio feminino), hiperativa/impulsiva (predomínio masculino) e combinada (mais comum)", "Desatenta (masculino), hiperativa (feminino) e mista (sem preferência)", "Hiperativa (feminino), desatenta (masculino) e combinada (sem preferência)", "Combinada (feminino), desatenta (masculino) e hiperativa (sem preferência)", "Desatenta (masculino), hiperativa/impulsiva (feminino) e combinada (masculino)"],
+    correctIndex: 0,
+    explanation: "O TDAH tem 3 formas: predominantemente desatenta (mais em meninas), predominantemente hiperativa/impulsiva (mais em meninos) e combinada (forma mais comum no geral)."
+  },
+  {
+    question: "Qual é o tratamento do TDAH na faixa etária de 6–12 anos?",
+    options: ["Metilfenidato associado a psicoterapia e treinamento parental", "Apenas metilfenidato", "Apenas psicoterapia e treinamento parental sem medicação", "Atomoxetina em primeira linha", "Risperidona associada a terapia"],
+    correctIndex: 0,
+    explanation: "Entre 6–12 anos, o tratamento do TDAH é multidisciplinar: metilfenidato associado a psicoterapia e treinamento parental. É sempre individualizado conforme idade, presença de comorbidades e resposta ao tratamento."
+  },
+  {
+    question: "O M-CHAT-R/F é a triagem para TEA recomendada em quais idades, e como se classifica o risco conforme a pontuação?",
+    options: ["18 e 24 meses; 0–2 = baixo, 3–7 = médio, 8–20 = alto risco (encaminhar)", "12 e 18 meses; 0–5 = baixo, 6–10 = médio, >10 = alto risco", "24 e 36 meses; 0–3 = baixo, 4–8 = médio, >8 = alto risco", "18 meses apenas; < 3 = negativo, ≥ 3 = positivo (encaminhar)", "6 e 12 meses; pontuação qualquer = encaminhar ao neuropediatra"],
+    correctIndex: 0,
+    explanation: "O M-CHAT-R/F é aplicado aos 18 e 24 meses (caderneta da criança). Classificação: 0–2 = baixo risco; 3–7 = médio risco; 8–20 = alto risco → encaminhar ao especialista."
+  },
+  {
+    question: "Qual sinal de alerta para TEA é especialmente importante observar em lactentes aos 18 meses na consulta pediátrica?",
+    options: ["Não apontar para mostrar interesse (pointing), não responder ao nome e ausência de fala funcional", "Não andar sozinho", "Não sentar sem apoio", "Não usar colher adequadamente", "Não correr ainda"],
+    correctIndex: 0,
+    explanation: "Os principais sinais de alerta para TEA no lactente incluem: não apontar para mostrar interesse (pointing), não responder ao ser chamado pelo nome, ausência de fala funcional, não compartilhar objetos e preferência por brincar sozinho."
+  },
+  {
+    question: "Quais medicamentos podem ser usados no TEA para controle de sintomas-alvo como agressividade e irritabilidade?",
+    options: ["Risperidona (≥ 5 anos) e aripiprazol (≥ 6 anos)", "Metilfenidato e risperidona", "Fluoxetina e haloperidol", "Apenas terapias não farmacológicas; sem indicação de medicamentos", "Valproato e clonazepam"],
+    correctIndex: 0,
+    explanation: "Não existem medicamentos específicos para o TEA, mas risperidona (a partir de 5 anos) e aripiprazol (a partir de 6 anos) podem ser usados para sintomas-alvo como agressividade e irritabilidade."
+  },
+  {
+    question: "O que é dislexia e como ela difere da disgrafia?",
+    options: ["Dislexia: dificuldade de aprendizagem de leitura/linguagem; disgrafia: problemas específicos na capacidade de escrever", "Dislexia: problema de escrita; disgrafia: problema de leitura", "Ambas são o mesmo transtorno com nomes diferentes", "Dislexia: atraso global do desenvolvimento; disgrafia: dislexia grave", "Dislexia: déficit de linguagem oral; disgrafia: déficit de linguagem escrita e oral"],
+    correctIndex: 0,
+    explanation: "Dislexia é um distúrbio de dificuldade de aprendizagem de linguagem ou escrita (leitura), não considerado doença mas comportamento peculiar do cérebro — tratamento: intervenção fonológica. Disgrafia é específica para a escrita."
+  },
+  {
+    question: "Qual dos seguintes achados é um sinal de ALERTA para atraso no desenvolvimento neuropsicomotor (ADNPM) aos 18 meses?",
+    options: ["Não andar sozinho aos 18 meses com poucas palavras e pouca interação", "Não correr aos 18 meses", "Não usar pinça fina aos 18 meses", "Não dizer frases com 3 palavras aos 18 meses", "Não subir escadas aos 18 meses"],
+    correctIndex: 0,
+    explanation: "Sinais de alerta aos 18 meses incluem: não andar sozinho, poucas palavras, pouca interação social e tônus alterado. Esses sinais devem levar ao encaminhamento para especialista e intervenção precoce."
+  },
+  {
+    question: "Qual é a base para o diagnóstico de TDAH e TEA?",
+    options: ["Diagnóstico clínico baseado em critérios do DSM-5 / CID-11; sem exame complementar diagnóstico específico", "Exames de neuroimagem (RNM cerebral)", "Eletroencefalograma (EEG)", "Exames genéticos", "Dosagem de neurotransmissores no LCR"],
+    correctIndex: 0,
+    explanation: "O diagnóstico de TDAH e TEA é essencialmente clínico, baseado nos critérios do DSM-5 e da CID-11. Não existe exame complementar específico para diagnóstico — exames são solicitados apenas para afastar diagnósticos diferenciais."
+  },
+  {
+    question: "Quais fatores de risco gestacionais e perinatais aumentam o risco de TDAH?",
+    options: ["Exposição materna à nicotina (2,4× maior risco), prematuridade e baixo peso (3× maior), hipóxia neonatal", "Vacinação na gestação e infecções virais", "Parto cesáreo e baixo peso ao nascer", "Gestação gemelar e cirurgia fetal", "Apenas fatores genéticos, sem influência ambiental perinatal"],
+    correctIndex: 0,
+    explanation: "Fatores de risco para TDAH incluem: exposição materna à nicotina (risco 2,4×), prematuridade e baixo peso ao nascer (risco 3×), hipóxia neonatal, estresse materno e obesidade na gestação."
+  },
+  {
+    question: "Caso clínico: menino de 8 anos com dificuldade de concentração na escola e em casa, hiperatividade desde os 5 anos, pai com 'dificuldades na escola'. Qual diagnóstico é mais provável?",
+    options: ["TDAH tipo combinado, dado o padrão persistente de desatenção e hiperatividade em múltiplos ambientes com início antes dos 12 anos", "TEA com déficit de linguagem", "Transtorno de ansiedade generalizada", "Deficiência intelectual", "Dislexia isolada"],
+    correctIndex: 0,
+    explanation: "O TDAH tipo combinado (desatento + hiperativo/impulsivo) é o mais provável: sintomas em múltiplos ambientes (escola e casa), início antes dos 12 anos, prejuízo acadêmico e social real, e histórico familiar positivo (pai)."
+  },
+  {
+    question: "Qual sinal NÃO é esperado em uma criança com suspeita de TEA?",
+    options: ["Vocabulário funcional rico com comunicação social preservada", "Ausência de pointing (não aponta para mostrar interesse)", "Comportamentos repetitivos (alinhar brinquedos, girar objetos)", "Não responder ao ser chamado pelo nome", "Preferência por brincar sozinho com resistência a mudanças de rotina"],
+    correctIndex: 0,
+    explanation: "No TEA, a comunicação social e a linguagem funcional estão comprometidas. Vocabulário funcional rico com comunicação preservada NÃO é esperado — ao contrário, ausência de pointing, comportamentos repetitivos e não responder ao nome são sinais clássicos."
+  },
+  {
+    question: "Quais regiões cerebrais apresentam menor velocidade de maturação no TDAH, explicando parte de sua fisiopatologia?",
+    options: ["Lobo frontal, estriado, amígdala e cerebelo", "Hipocampo, tálamo e córtex visual", "Lobo parietal, occipital e temporal", "Cerebelo, tronco encefálico e medula", "Apenas córtex pré-frontal e amígdala"],
+    correctIndex: 0,
+    explanation: "O TDAH afeta regiões com menor velocidade de maturação: lobo frontal (funções executivas), estriado, amígdala e cerebelo — levando a neurotransmissão inadequada e déficits de atenção, controle de impulsos e regulação emocional."
+  },
+  {
+    question: "Em relação ao desenvolvimento normal, qual das seguintes afirmações está CORRETA?",
+    options: ["Meninos desenvolvem mais precocemente habilidades motoras; meninas desenvolvem mais precocemente habilidades sociais e de linguagem", "Meninas desenvolvem habilidades motoras antes; meninos desenvolvem linguagem antes", "Não há diferença de desenvolvimento entre os sexos", "Meninos desenvolvem linguagem antes; meninas desenvolvem motor amplo antes", "Meninas e meninos têm padrão idêntico de desenvolvimento"],
+    correctIndex: 0,
+    explanation: "Existe variabilidade normal por sexo: meninos desenvolvem mais precocemente habilidades motoras; meninas desenvolvem mais precocemente habilidades sociais e de linguagem. Isso deve ser considerado na avaliação do DNPM."
+  },
+  {
+    question: "Qual é o papel da caderneta da criança na avaliação do desenvolvimento neuropsicomotor?",
+    options: ["Instrumento oficial de avaliação que permite checar marcos do desenvolvimento da idade atual e das anteriores", "Serve apenas para registro de vacinas", "Substitui completamente o teste de Denver II", "É usada apenas para crianças acima de 2 anos", "Não tem validade clínica para avaliação do DNPM"],
+    correctIndex: 0,
+    explanation: "A caderneta da criança é o instrumento oficial de avaliação do desenvolvimento, permitindo checar marcos da idade atual e anteriores. Contém também a triagem M-CHAT-R/F para TEA aos 18 e 24 meses."
+  },
+  {
+    question: "Caso clínico: menino de 3 anos que não forma frases de 2 palavras, não aponta para objetos, não responde ao nome, alinha brinquedos repetidamente e tem crises com mudança de rotina. M-CHAT-R/F com 8/20 positivos. Qual a conduta?",
+    options: ["Confirmar suspeita de TEA e encaminhar para neurologista, psicólogo, psicopedagoga e terapeuta ocupacional", "Aguardar até os 5 anos para nova avaliação", "Solicitar apenas audiometria e encerrar o caso", "Iniciar metilfenidato empiricamente", "Tranquilizar os pais pois é variante normal do desenvolvimento"],
+    correctIndex: 0,
+    explanation: "M-CHAT com 8/20 = alto risco para TEA. A conduta inclui: confirmar a suspeita com avaliação clínica detalhada, exames complementares selecionados (audiometria, avaliação psicológica), ponderação de diferenciais e encaminhamento multidisciplinar (neurologista, psicólogo, fonoaudióloga, TO)."
+  }
+];
+
+function shuffleQuestion(q) {
+  const correctText = q.options[q.correctIndex];
+  const shuffled = [...q.options];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return { ...q, options: shuffled, correctIndex: shuffled.indexOf(correctText) };
+}
+
+function prepareQuestions() {
+  const shuffledQs = [...rawQuestions];
+  for (let i = shuffledQs.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledQs[i], shuffledQs[j]] = [shuffledQs[j], shuffledQs[i]];
+  }
+  return shuffledQs.map(shuffleQuestion);
+}
+
+let questions = [];
+let current = 0;
+let correct = 0;
+let wrong = 0;
+
+function startQuiz() {
+  questions = prepareQuestions();
+  current = 0; correct = 0; wrong = 0;
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('quizScreen').classList.remove('hidden');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[current];
+  document.getElementById('progressText').textContent = `Questão ${current + 1} de ${questions.length}`;
+  document.getElementById('progressBar').style.width = `${((current) / questions.length) * 100}%`;
+  document.getElementById('questionText').textContent = q.question;
+  const cont = document.getElementById('optionsContainer');
+  cont.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.textContent = opt;
+    btn.onclick = () => selectAnswer(i);
+    cont.appendChild(btn);
+  });
+  document.getElementById('explanation').classList.add('hidden');
+  document.getElementById('nextBtnWrap').classList.add('hidden');
+}
+
+function selectAnswer(idx) {
+  const q = questions[current];
+  const opts = document.querySelectorAll('.option');
+  opts.forEach(o => o.classList.add('disabled'));
+  opts[idx].classList.add(idx === q.correctIndex ? 'correct' : 'wrong');
+  if (idx !== q.correctIndex) opts[q.correctIndex].classList.add('correct');
+  if (idx === q.correctIndex) correct++; else wrong++;
+  const exp = document.getElementById('explanation');
+  exp.innerHTML = `<strong>Explicação:</strong> ${q.explanation}`;
+  exp.classList.remove('hidden');
+  const wrap = document.getElementById('nextBtnWrap');
+  wrap.classList.remove('hidden');
+  const btn = document.getElementById('nextBtn');
+  btn.textContent = current + 1 < questions.length ? 'Próxima questão' : 'Ver resultado';
+}
+
+function nextQuestion() {
+  current++;
+  if (current < questions.length) {
+    renderQuestion();
+  } else {
+    showResult();
+  }
+}
+
+function showResult() {
+  document.getElementById('quizScreen').classList.add('hidden');
+  const res = document.getElementById('resultScreen');
+  res.classList.remove('hidden');
+  const pct = Math.round((correct / questions.length) * 100);
+  document.getElementById('scorePercent').textContent = `${pct}%`;
+  document.getElementById('totalCorrect').textContent = correct;
+  document.getElementById('totalWrong').textContent = wrong;
+  document.getElementById('totalQ').textContent = questions.length;
+}
+
+function restartQuiz() {
+  document.getElementById('resultScreen').classList.add('hidden');
+  startQuiz();
+}
+</script>
+</body>
+</html>
