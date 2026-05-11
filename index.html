@@ -255,43 +255,43 @@
 const rawQuestions = [
   {
     question: "O Teste de Denver II avalia crianças de qual faixa etária e em quais 4 áreas do desenvolvimento?",
-    options: ["0–6 anos; pessoal-social, motricidade fina/adaptativa, linguagem e motricidade ampla", "0–3 anos; motor, linguagem, cognitivo e social", "0–6 anos; motor, sensorial, linguagem e cognitivo", "2–6 anos; pessoal-social, motor fino, linguagem e comportamento", "0–5 anos; motricidade, linguagem, social e cognitivo"],
+    options: ["0–6 anos; pessoal-social, motricidade fina/adaptativa, linguagem e motor amplo", "0–3 anos; domínios motor, linguagem, cognitivo e social sem subclassificações", "0–6 anos; motor grosso, sensorial, linguagem e cognitivo sem distinção fina", "2–6 anos; pessoal-social, motor fino, linguagem e comportamento adaptativo", "0–5 anos; motricidade, linguagem, social e cognitivo em quatro domínios"],
     correctIndex: 0,
     explanation: "O Teste de Denver II avalia crianças de 0 a 6 anos em 4 áreas: pessoal-social, motricidade fina e adaptativa, linguagem e motricidade ampla. É uma escala de rastreio para ADNPM."
   },
   {
     question: "Como deve ser corrigida a idade de prematuros para avaliação dos marcos de desenvolvimento?",
-    options: ["Subtrair da idade cronológica a diferença entre a idade gestacional e 40 semanas (termo)", "Adicionar 2 meses à idade cronológica para qualquer prematuro", "Usar a idade cronológica sem correção após os 6 meses", "Corrigir apenas para prematuros < 28 semanas", "Não é necessário corrigir a idade em prematuros"],
+    options: ["Subtrair da idade cronológica a diferença entre a IG e 40 semanas (termo)", "Adicionar 2 meses à idade cronológica para qualquer prematuro", "Usar a idade cronológica sem correção para qualquer prematuro após os 6 meses", "Corrigir apenas para prematuros com menos de 28 semanas de gestação", "Não é necessário corrigir a idade gestacional em prematuros para o DNPM"],
     correctIndex: 0,
     explanation: "Em prematuros, deve-se corrigir a idade descontando a diferença entre a idade gestacional e 40 semanas (termo) da idade cronológica. Isso adapta os marcos normais do desenvolvimento ao nível de maturidade real da criança."
   },
   {
     question: "A mielinização ocorre cerca de 90% até qual idade e em qual direção se processa?",
-    options: ["90% até os 4 anos; céfalo-caudal, próximo-distal (centro-periferia) e ulna-rádio", "90% até os 2 anos; caudal-cefálico, distal-proximal", "90% até os 6 anos; céfalo-caudal e látero-medial", "100% até os 4 anos; próximo-distal apenas", "90% até a puberdade; sem direção definida"],
+    options: ["90% até os 4 anos; céfalo-caudal, próximo-distal (centro-periferia) e ulna-rádio", "90% até os 2 anos; caudal-cefálico, distal-proximal e rádio-ulnar", "90% até os 6 anos; céfalo-caudal e látero-medial sem progressão proximal", "100% até os 4 anos; apenas próximo-distal, sem outra sequência", "90% até a puberdade; sentido indeterminado sem regra de progressão"],
     correctIndex: 0,
     explanation: "A mielinização ocorre ~90% até os 4 anos e 10% até a adolescência, de forma céfalo-caudal, centro-periferia (próximo-distal) e ulna-rádio, marcando a transição de funções reflexas para voluntárias."
   },
   {
     question: "Quantos sintomas característicos de TDAH são necessários para o diagnóstico em crianças até 17 anos e qual é o requisito de início dos sintomas?",
-    options: ["≥ 6 sintomas antes dos 12 anos, presentes em mais de 1 ambiente, com prejuízo real", "≥ 5 sintomas a qualquer momento, apenas na escola", "≥ 8 sintomas antes dos 7 anos, apenas em casa", "≥ 6 sintomas após os 12 anos, em qualquer ambiente", "≥ 4 sintomas antes dos 12 anos, com prejuízo escolar apenas"],
+    options: ["≥ 6 sintomas antes dos 12 anos, presentes em mais de 1 ambiente, com prejuízo real", "≥ 5 sintomas a qualquer momento, restritos ao ambiente escolar com prejuízo parcial", "≥ 8 sintomas antes dos 7 anos, manifestando-se apenas no ambiente doméstico", "≥ 6 sintomas após os 12 anos, presentes em qualquer ambiente sem critério de início", "≥ 4 sintomas antes dos 12 anos, com prejuízo restrito ao desempenho escolar"],
     correctIndex: 0,
     explanation: "Para o diagnóstico de TDAH são necessários ≥ 6 sintomas, com início antes dos 12 anos, presentes em mais de 1 ambiente (escola, casa) e com prejuízo real. Acima de 17 anos, o critério cai para ≥ 5 sintomas."
   },
   {
     question: "Qual a principal toxina ambiental associada ao TDAH, com forte evidência de risco?",
-    options: ["Chumbo (principal)", "Mercúrio", "Cádmio", "Pesticidas organofosforados", "Bisfenol A"],
+    options: ["Chumbo (principal) — neurotoxina mais estudada, afeta cognição e QI", "Mercúrio — neurotoxina presente em peixes e amalgamas dentários", "Cádmio — metal pesado com impacto principal nos rins, não no DNPM", "Pesticidas organofosforados — inibidores de colinesterase com efeito neurotóxico", "Bisfenol A (BPA) — disruptor endócrino presente em plásticos e embalagens"],
     correctIndex: 0,
     explanation: "O chumbo é a principal toxina ambiental associada ao TDAH. Outros fatores de risco incluem exposição materna à nicotina (2,4× maior risco), prematuridade e baixo peso (3× maior risco) e hipóxia neonatal."
   },
   {
     question: "Quais são as 3 formas de apresentação clínica do TDAH e qual predomina em cada sexo?",
-    options: ["Desatenta (predomínio feminino), hiperativa/impulsiva (predomínio masculino) e combinada (mais comum)", "Desatenta (masculino), hiperativa (feminino) e mista (sem preferência)", "Hiperativa (feminino), desatenta (masculino) e combinada (sem preferência)", "Combinada (feminino), desatenta (masculino) e hiperativa (sem preferência)", "Desatenta (masculino), hiperativa/impulsiva (feminino) e combinada (masculino)"],
+    options: ["Desatenta (feminino), hiperativa/impulsiva (masculino) e combinada (ambos os sexos)", "Desatenta (masculino), hiperativa (feminino) e mista (sem preferência)", "Hiperativa (feminino), desatenta (masculino) e combinada (sem preferência)", "Combinada (feminino), desatenta (masculino) e hiperativa (sem preferência)", "Desatenta (masculino), hiperativa/impulsiva (feminino) e combinada (masculino)"],
     correctIndex: 0,
     explanation: "O TDAH tem 3 formas: predominantemente desatenta (mais em meninas), predominantemente hiperativa/impulsiva (mais em meninos) e combinada (forma mais comum no geral)."
   },
   {
     question: "Qual é o tratamento do TDAH na faixa etária de 6–12 anos?",
-    options: ["Metilfenidato associado a psicoterapia e treinamento parental", "Apenas metilfenidato", "Apenas psicoterapia e treinamento parental sem medicação", "Atomoxetina em primeira linha", "Risperidona associada a terapia"],
+    options: ["Metilfenidato associado a psicoterapia e treinamento parental", "Apenas metilfenidato sem terapias não farmacológicas associadas", "Apenas psicoterapia e treinamento parental sem medicação", "Atomoxetina em primeira linha para todos os casos de TDAH", "Risperidona associada a terapia comportamental e psicossocial"],
     correctIndex: 0,
     explanation: "Entre 6–12 anos, o tratamento do TDAH é multidisciplinar: metilfenidato associado a psicoterapia e treinamento parental. É sempre individualizado conforme idade, presença de comorbidades e resposta ao tratamento."
   },
@@ -303,73 +303,73 @@ const rawQuestions = [
   },
   {
     question: "Qual sinal de alerta para TEA é especialmente importante observar em lactentes aos 18 meses na consulta pediátrica?",
-    options: ["Não apontar para mostrar interesse (pointing), não responder ao nome e ausência de fala funcional", "Não andar sozinho", "Não sentar sem apoio", "Não usar colher adequadamente", "Não correr ainda"],
+    options: ["Não apontar para mostrar interesse (pointing), não responder ao nome e ausência de fala funcional", "Não andar sozinho após os 18 meses — marco motor tardio mas não específico de TEA", "Não sentar sem apoio após os 9 meses — marco motor tardio mas não específico de TEA", "Não usar colher adequadamente após os 24 meses — indicativo de atraso motor fino", "Não correr após os 24 meses — marco motor que indica atraso no desenvolvimento"],
     correctIndex: 0,
     explanation: "Os principais sinais de alerta para TEA no lactente incluem: não apontar para mostrar interesse (pointing), não responder ao ser chamado pelo nome, ausência de fala funcional, não compartilhar objetos e preferência por brincar sozinho."
   },
   {
     question: "Quais medicamentos podem ser usados no TEA para controle de sintomas-alvo como agressividade e irritabilidade?",
-    options: ["Risperidona (≥ 5 anos) e aripiprazol (≥ 6 anos)", "Metilfenidato e risperidona", "Fluoxetina e haloperidol", "Apenas terapias não farmacológicas; sem indicação de medicamentos", "Valproato e clonazepam"],
+    options: ["Risperidona (aprovada ≥ 5 anos) e aripiprazol (aprovado ≥ 6 anos)", "Metilfenidato e risperidona, indicados desde os 2 anos no TEA", "Fluoxetina e haloperidol em todas as faixas etárias pediátricas", "Apenas terapias não farmacológicas; sem indicação de medicamentos", "Valproato e clonazepam para controle do comportamento repetitivo"],
     correctIndex: 0,
     explanation: "Não existem medicamentos específicos para o TEA, mas risperidona (a partir de 5 anos) e aripiprazol (a partir de 6 anos) podem ser usados para sintomas-alvo como agressividade e irritabilidade."
   },
   {
     question: "O que é dislexia e como ela difere da disgrafia?",
-    options: ["Dislexia: dificuldade de aprendizagem de leitura/linguagem; disgrafia: problemas específicos na capacidade de escrever", "Dislexia: problema de escrita; disgrafia: problema de leitura", "Ambas são o mesmo transtorno com nomes diferentes", "Dislexia: atraso global do desenvolvimento; disgrafia: dislexia grave", "Dislexia: déficit de linguagem oral; disgrafia: déficit de linguagem escrita e oral"],
+    options: ["Dislexia: transtorno de leitura; disgrafia: transtorno específico de escrita", "Dislexia: transtorno de escrita; disgrafia: transtorno de leitura (inversão)", "Ambas são o mesmo transtorno com nomes diferentes, afetando o rendimento escolar", "Dislexia: atraso global do desenvolvimento intelectual; disgrafia: forma grave da dislexia", "Dislexia: déficit de linguagem oral; disgrafia: déficit de linguagem escrita e oral"],
     correctIndex: 0,
     explanation: "Dislexia é um distúrbio de dificuldade de aprendizagem de linguagem ou escrita (leitura), não considerado doença mas comportamento peculiar do cérebro — tratamento: intervenção fonológica. Disgrafia é específica para a escrita."
   },
   {
     question: "Qual dos seguintes achados é um sinal de ALERTA para atraso no desenvolvimento neuropsicomotor (ADNPM) aos 18 meses?",
-    options: ["Não andar sozinho aos 18 meses com poucas palavras e pouca interação", "Não correr aos 18 meses", "Não usar pinça fina aos 18 meses", "Não dizer frases com 3 palavras aos 18 meses", "Não subir escadas aos 18 meses"],
+    options: ["Não andar sozinho aos 18 meses com poucas palavras e pouca interação", "Não correr aos 18 meses — habilidade motora que ainda não é esperada nesta fase", "Não usar pinça fina aos 18 meses — habilidade esperada por volta dos 9–10 meses", "Não dizer frases com 3 palavras aos 18 meses — esperado apenas entre 2–3 anos", "Não subir escadas aos 18 meses — habilidade esperada por volta dos 12–18 meses"],
     correctIndex: 0,
     explanation: "Sinais de alerta aos 18 meses incluem: não andar sozinho, poucas palavras, pouca interação social e tônus alterado. Esses sinais devem levar ao encaminhamento para especialista e intervenção precoce."
   },
   {
     question: "Qual é a base para o diagnóstico de TDAH e TEA?",
-    options: ["Diagnóstico clínico baseado em critérios do DSM-5 / CID-11; sem exame complementar diagnóstico específico", "Exames de neuroimagem (RNM cerebral)", "Eletroencefalograma (EEG)", "Exames genéticos", "Dosagem de neurotransmissores no LCR"],
+    options: ["Diagnóstico clínico pelos critérios do DSM-5 / CID-11; sem exame complementar específico", "Exames de neuroimagem (RNM cerebral) para identificar lesões hipofisárias", "Eletroencefalograma (EEG) para afastar crises epilépticas como diagnóstico", "Exames genéticos com cariótipo e microarray para identificar variantes patogênicas", "Dosagem de neurotransmissores no LCR para confirmar o déficit de dopamina"],
     correctIndex: 0,
     explanation: "O diagnóstico de TDAH e TEA é essencialmente clínico, baseado nos critérios do DSM-5 e da CID-11. Não existe exame complementar específico para diagnóstico — exames são solicitados apenas para afastar diagnósticos diferenciais."
   },
   {
     question: "Quais fatores de risco gestacionais e perinatais aumentam o risco de TDAH?",
-    options: ["Exposição materna à nicotina (2,4× maior risco), prematuridade e baixo peso (3× maior), hipóxia neonatal", "Vacinação na gestação e infecções virais", "Parto cesáreo e baixo peso ao nascer", "Gestação gemelar e cirurgia fetal", "Apenas fatores genéticos, sem influência ambiental perinatal"],
+    options: ["Nicotina materna (2,4× risco), prematuridade e baixo peso (3× risco), hipóxia neonatal", "Vacinação na gestação e infecções virais maternas como fatores de risco independentes", "Parto cesáreo e baixo peso ao nascer como fatores perinatais mais relevantes", "Gestação gemelar e cirurgia fetal no segundo trimestre como fatores de risco", "Apenas fatores genéticos, sem qualquer influência de fatores ambientais perinatais"],
     correctIndex: 0,
     explanation: "Fatores de risco para TDAH incluem: exposição materna à nicotina (risco 2,4×), prematuridade e baixo peso ao nascer (risco 3×), hipóxia neonatal, estresse materno e obesidade na gestação."
   },
   {
     question: "Caso clínico: menino de 8 anos com dificuldade de concentração na escola e em casa, hiperatividade desde os 5 anos, pai com 'dificuldades na escola'. Qual diagnóstico é mais provável?",
-    options: ["TDAH tipo combinado, dado o padrão persistente de desatenção e hiperatividade em múltiplos ambientes com início antes dos 12 anos", "TEA com déficit de linguagem", "Transtorno de ansiedade generalizada", "Deficiência intelectual", "Dislexia isolada"],
+    options: ["TDAH tipo combinado: desatenção + hiperatividade em múltiplos ambientes, início <12 anos", "TEA com déficit de linguagem funcional e ausência de comunicação social efetiva", "Transtorno de ansiedade generalizada com sintomas difusos em múltiplos contextos", "Deficiência intelectual com comprometimento global do funcionamento adaptativo", "Dislexia isolada com dificuldade específica de leitura e decodificação fonológica"],
     correctIndex: 0,
     explanation: "O TDAH tipo combinado (desatento + hiperativo/impulsivo) é o mais provável: sintomas em múltiplos ambientes (escola e casa), início antes dos 12 anos, prejuízo acadêmico e social real, e histórico familiar positivo (pai)."
   },
   {
     question: "Qual sinal NÃO é esperado em uma criança com suspeita de TEA?",
-    options: ["Vocabulário funcional rico com comunicação social preservada", "Ausência de pointing (não aponta para mostrar interesse)", "Comportamentos repetitivos (alinhar brinquedos, girar objetos)", "Não responder ao ser chamado pelo nome", "Preferência por brincar sozinho com resistência a mudanças de rotina"],
+    options: ["Vocabulário funcional rico com comunicação social preservada", "Ausência de pointing (não aponta para mostrar interesse)", "Comportamentos repetitivos (alinhar brinquedos, girar objetos)", "Não responder ao ser chamado pelo nome em múltiplas situações", "Preferência por brincar sozinho com resistência a mudanças de rotina"],
     correctIndex: 0,
     explanation: "No TEA, a comunicação social e a linguagem funcional estão comprometidas. Vocabulário funcional rico com comunicação preservada NÃO é esperado — ao contrário, ausência de pointing, comportamentos repetitivos e não responder ao nome são sinais clássicos."
   },
   {
     question: "Quais regiões cerebrais apresentam menor velocidade de maturação no TDAH, explicando parte de sua fisiopatologia?",
-    options: ["Lobo frontal, estriado, amígdala e cerebelo", "Hipocampo, tálamo e córtex visual", "Lobo parietal, occipital e temporal", "Cerebelo, tronco encefálico e medula", "Apenas córtex pré-frontal e amígdala"],
+    options: ["Lobo frontal, estriado, amígdala e cerebelo", "Hipocampo, tálamo e córtex visual posterior", "Lobo parietal, occipital e temporal associativo", "Cerebelo, tronco encefálico e medula espinhal", "Apenas córtex pré-frontal dorsolateral e amígdala"],
     correctIndex: 0,
     explanation: "O TDAH afeta regiões com menor velocidade de maturação: lobo frontal (funções executivas), estriado, amígdala e cerebelo — levando a neurotransmissão inadequada e déficits de atenção, controle de impulsos e regulação emocional."
   },
   {
     question: "Em relação ao desenvolvimento normal, qual das seguintes afirmações está CORRETA?",
-    options: ["Meninos desenvolvem mais precocemente habilidades motoras; meninas desenvolvem mais precocemente habilidades sociais e de linguagem", "Meninas desenvolvem habilidades motoras antes; meninos desenvolvem linguagem antes", "Não há diferença de desenvolvimento entre os sexos", "Meninos desenvolvem linguagem antes; meninas desenvolvem motor amplo antes", "Meninas e meninos têm padrão idêntico de desenvolvimento"],
+    options: ["Meninos: mais precoces no motor; meninas: mais precoces nas habilidades sociais e linguagem", "Meninas desenvolvem habilidades motoras antes; meninos desenvolvem linguagem antes", "Não há diferença de desenvolvimento entre os sexos em nenhuma das áreas avaliadas", "Meninos desenvolvem linguagem antes; meninas desenvolvem motor amplo antes", "Meninas e meninos têm padrão idêntico de desenvolvimento em todas as áreas"],
     correctIndex: 0,
     explanation: "Existe variabilidade normal por sexo: meninos desenvolvem mais precocemente habilidades motoras; meninas desenvolvem mais precocemente habilidades sociais e de linguagem. Isso deve ser considerado na avaliação do DNPM."
   },
   {
     question: "Qual é o papel da caderneta da criança na avaliação do desenvolvimento neuropsicomotor?",
-    options: ["Instrumento oficial de avaliação que permite checar marcos do desenvolvimento da idade atual e das anteriores", "Serve apenas para registro de vacinas", "Substitui completamente o teste de Denver II", "É usada apenas para crianças acima de 2 anos", "Não tem validade clínica para avaliação do DNPM"],
+    options: ["Instrumento oficial para checar marcos do DNPM da idade atual e das anteriores", "Serve apenas para registro de vacinas aplicadas nas consultas pediátricas", "Substitui completamente o teste de Denver II em todas as consultas", "É usada apenas para crianças acima de 2 anos até a fase escolar", "Não tem validade clínica para avaliação do DNPM em consultas de rotina"],
     correctIndex: 0,
     explanation: "A caderneta da criança é o instrumento oficial de avaliação do desenvolvimento, permitindo checar marcos da idade atual e anteriores. Contém também a triagem M-CHAT-R/F para TEA aos 18 e 24 meses."
   },
   {
     question: "Caso clínico: menino de 3 anos que não forma frases de 2 palavras, não aponta para objetos, não responde ao nome, alinha brinquedos repetidamente e tem crises com mudança de rotina. M-CHAT-R/F com 8/20 positivos. Qual a conduta?",
-    options: ["Confirmar suspeita de TEA e encaminhar para neurologista, psicólogo, psicopedagoga e terapeuta ocupacional", "Aguardar até os 5 anos para nova avaliação", "Solicitar apenas audiometria e encerrar o caso", "Iniciar metilfenidato empiricamente", "Tranquilizar os pais pois é variante normal do desenvolvimento"],
+    options: ["Confirmar suspeita de TEA e encaminhar para equipe multidisciplinar especializada", "Aguardar até os 5 anos para nova avaliação, pois o diagnóstico é difícil antes disso", "Solicitar apenas audiometria e encerrar o caso se audição for normal", "Iniciar metilfenidato empiricamente enquanto aguarda avaliação especializada", "Tranquilizar os pais pois se trata de variante normal do desenvolvimento"],
     correctIndex: 0,
     explanation: "M-CHAT com 8/20 = alto risco para TEA. A conduta inclui: confirmar a suspeita com avaliação clínica detalhada, exames complementares selecionados (audiometria, avaliação psicológica), ponderação de diferenciais e encaminhamento multidisciplinar (neurologista, psicólogo, fonoaudióloga, TO)."
   }
